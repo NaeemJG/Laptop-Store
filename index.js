@@ -15,18 +15,19 @@ const server = http.createServer((req, res) => {
         res.writeHead(200, {'Content-Type': 'text/html'});
         fs.readFile(`${__dirname}/Template/laptop.html`, 'utf-8', (err, data) => {
             const laptop = laptopData[id]
-            let output = data.replace('{%PRODUCTNAME%}', laptop.productName)
-            let output = output.replace('{%IMAGE%}', laptop.image)
-            let output = output.replace('{%PRICE%}', laptop.price)
-            let output = output.replace('{%screen%}', laptop.screen)
-            let output = output.replace('{%cpu%}', laptop.cpu)
-            let output = output.replace('{%storage%}', laptop.storage)
-            let output = output.replace('{%ram%}', laptop.ram)
-            let output = output.replace('{%description%}', laptop.description)
+            let output = data.replace(/{%PRODUCTNAME%}/g, laptop.productName)
+            output = output.replace(/{%IMAGE%}/g, laptop.image)
+            output = output.replace(/{%PRICE%}/g, laptop.price)
+            output = output.replace(/{%SCREEN%}/g, laptop.screen)
+            output = output.replace(/{%CPU%}/g, laptop.cpu)
+            output = output.replace(/{%STORAGE%}/g, laptop.storage)
+            output = output.replace(/{%RAM%}/g, laptop.ram)
+            output = output.replace(/{%DESCRIPTION%}/g, laptop.description)
+            res.end(output)
         })
     } else {
         res.writeHead(404, {'Content-Type': 'text/html'});
-        res.end(`<h1>Page was not found on the page</h1>`);output
+        res.end(`<h1>Page was not found on the page</h1>`);
+    }
     
-}).listen(3000)
-
+    }).listen(3000)

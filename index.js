@@ -13,8 +13,9 @@ const server = http.createServer((req, res) => {
         res.end();
     } else if(pathName == '/laptop' && id < laptopData.length) {
         res.writeHead(200, {'Content-Type': 'text/html'});
-        res.write(`<h1>Laptop page :/</h1>`);
-        res.end(`This is the laptop page for the laptop with the id: ${id}`);
+        fs.readFile(`${__dirname}/Template/laptop.html`, 'utf-8', (err, data) => {
+            
+        })
     } else {
         res.writeHead(404, {'Content-Type': 'text/html'});
         res.end(`<h1>Page was not found on the page</h1>`);

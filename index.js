@@ -31,6 +31,11 @@ const server = http.createServer((req, res) => {
             res.end(output)
         })
 
+    } else if((/\.(jpg|jpeg|png|gif)$/i).test(pathName)) {
+        fs.readFile(`${__dirname}/data/img${pathName}`, (err, data) => {
+            res.writeHead(200, {'Content-type': 'image/jpg'});
+            res.end(data);
+        })
     } else {
         res.writeHead(404, {
             'Content-Type': 'text/html'
@@ -52,3 +57,4 @@ const replaceTemplate = (originalHtml, laptop) => {
     output = output.replace(/{%ID%}/g, laptop.id)
     return output;
 }
+
